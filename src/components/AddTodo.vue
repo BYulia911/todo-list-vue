@@ -26,13 +26,32 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
   gap: 5px;
   width: 400px;
+}
+
+input {
+  border: 1px solid gray;
+  font-size: 15px;
+  padding: 0 5px;
+}
+
+input,
+.addButton {
+  height: 35px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .addButton {
   color: white;
   background-color: black;
   padding: 3px;
+  border: none;
 }
 </style>

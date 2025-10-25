@@ -8,9 +8,12 @@
         id="done"
         v-model="checked"
       />
-      <div v-if="isDisabled">
-        <input v-model="todoInput" id="todoInput" name="todoInput" />
-      </div>
+      <input
+        v-if="isDisabled"
+        v-model="todoInput"
+        id="todoInput"
+        name="todoInput"
+      />
       <span v-else :class="{ checked: checked }">{{ todo }}</span>
     </div>
     <div class="buttons">
@@ -52,35 +55,46 @@ export default {
 </script>
 
 <style scoped>
+input,
+button {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
 li {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 0 0 30px 0;
   gap: 5px;
 }
 
 .inputs {
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
 
 input {
-  width: 100%;
+  width: calc(100% - 40px);
   height: 30px;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 500;
   box-sizing: border-box;
 }
 
 span {
-  font-size: 16px;
+  font-size: 18px;
+  margin-left: 4px;
 }
 
 .checkbox-input {
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 4px;
   border: 1px solid black;
   background-color: #fff;
@@ -102,6 +116,7 @@ span {
 
 button {
   width: 150px;
+  height: 30px;
   border: none;
   padding: 4px 0;
   border-radius: 4px;
