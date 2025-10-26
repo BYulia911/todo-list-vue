@@ -4,8 +4,8 @@
     <h2>What needs to be done?</h2>
     <AddTodo @add="addTodo" />
     <p>
-      <span style="color: red">count</span> out of {{ this.todos.length }} items
-      completed
+      <span style="color: red">{{ completedTodos }}</span> out of
+      {{ this.todos.length }} items completed
     </p>
     <TodoList :todos="todos" @del="delTodo" @save="saveTodo" />
   </div>
@@ -23,20 +23,43 @@ export default {
   },
   data() {
     return {
-      todos: [],
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
+  },
+  computed: {
+    completedTodos() {
+      return this.todos.filter((t) => t.completed).length;
+    },
   },
   methods: {
     addTodo(str) {
       if (str) {
-        this.todos.push(str);
+        const newTodo = {
+          id: Date.now(),
+          name: str,
+          completed: false,
+        };
+        this.todos.push(newTodo);
+        this.updateLocalStorage();
       }
     },
-    delTodo(index) {
-      this.todos.splice(index, 1);
+    delTodo(id) {
+      const todo = this.todos.findIndex((t) => t.id === id);
+      if (todo !== -1) {
+        this.todos.splice(todo, 1);
+        this.updateLocalStorage();
+      }
     },
-    saveTodo(index, str) {
-      this.todos[index] = str;
+    saveTodo(id, str, status) {
+      const todo = this.todos.find((t) => t.id == id);
+      if (todo) {
+        todo.name = str;
+        todo.completed = status;
+        this.updateLocalStorage();
+      }
+    },
+    updateLocalStorage() {
+      localStorage.setItem("todos", JSON.stringify(this.todos));
     },
   },
 };

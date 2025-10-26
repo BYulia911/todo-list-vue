@@ -1,10 +1,9 @@
 <template>
   <ul>
     <TodoItem
-      v-for="(todo, index) in todos"
-      :key="index"
+      v-for="todo in todos"
+      :key="todo.id"
       :todo="todo"
-      :index="index"
       @del="del"
       @save="save"
     />
@@ -25,8 +24,8 @@ export default {
     del(index) {
       this.$emit("del", index);
     },
-    save(index, str) {
-      this.$emit("save", index, str);
+    save(index, str, status) {
+      this.$emit("save", index, str, status);
     },
   },
 };

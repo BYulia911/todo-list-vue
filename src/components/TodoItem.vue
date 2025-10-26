@@ -5,22 +5,25 @@
         class="checkbox-input"
         type="checkbox"
         name="done"
-        id="done"
-        v-model="checked"
+        :id="'checkbox-' + localTodo.id"
+        v-model="localTodo.completed"
+        @change="updateCompleted"
       />
       <input
         v-if="isDisabled"
-        v-model="todoInput"
-        id="todoInput"
+        v-model="localTodo.name"
+        :id="'todoInput-' + localTodo.id"
         name="todoInput"
       />
-      <span v-else :class="{ checked: checked }">{{ todo }}</span>
+      <span v-else :class="{ checked: localTodo.completed }">{{
+        localTodo.name
+      }}</span>
     </div>
     <div class="buttons">
       <button id="editBtn" @click="editTodo">
         {{ isDisabled ? "Save" : "Edit" }}
       </button>
-      <button id="delBtn" @click="delTodo(index)">Delete</button>
+      <button id="delBtn" @click="delTodo(localTodo.id)">Delete</button>
     </div>
   </li>
 </template>
@@ -31,13 +34,11 @@ export default {
   data() {
     return {
       isDisabled: false,
-      todoInput: this.todo,
-      checked: false,
+      localTodo: { ...this.todo },
     };
   },
   props: {
-    todo: String,
-    index: Number,
+    todo: Object,
   },
   methods: {
     delTodo(index) {
@@ -48,7 +49,21 @@ export default {
     },
     saveTodo() {
       this.isDisabled = false;
-      this.$emit("save", this.index, this.todoInput);
+      this.$emit(
+        "save",
+        this.localTodo.id,
+        this.localTodo.name,
+        this.localTodo.completed
+      );
+    },
+    updateCompleted() {
+      console.log(this.localTodo.name, this.localTodo.completed);
+      this.$emit(
+        "save",
+        this.localTodo.id,
+        this.localTodo.name,
+        this.localTodo.completed
+      );
     },
   },
 };
@@ -91,6 +106,12 @@ span {
   margin-left: 4px;
 }
 
+.checkbox-input:hover,
+#delBtn:hover,
+#editBtn:hover {
+  cursor: pointer;
+}
+
 .checkbox-input {
   appearance: none;
   width: 30px;
@@ -101,11 +122,20 @@ span {
   margin: 0;
 }
 
+.checkbox-input:hover {
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  border-color: #a3a3a3;
+}
+
 .checkbox-input:checked {
   background-color: #ff4f4f;
   border-color: #ff4f4f;
   background-image: var(--itc-checkbox-bg-image);
   --itc-checkbox-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.checkbox-input:checked:hover {
+  box-shadow: 1px 1px 4px rgba(255, 79, 79, 0.6);
 }
 
 .buttons {
@@ -128,9 +158,20 @@ button {
   border: 1px solid black;
 }
 
+#editBtn:hover {
+  border-color: #919191;
+  background-color: #fafafa;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
 #delBtn {
   color: white;
   background-color: #f00202;
+}
+
+#delBtn:hover {
+  background-color: #e30000;
+  box-shadow: 2px 2px 5px rgba(211, 0, 0, 0.5);
 }
 
 .checked {
