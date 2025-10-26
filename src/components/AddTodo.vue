@@ -28,7 +28,7 @@ export default {
   flex-direction: column;
   margin-top: 10px;
   gap: 5px;
-  width: 400px;
+  width: 100%;
 }
 
 input {
