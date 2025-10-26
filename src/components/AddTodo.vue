@@ -54,4 +54,9 @@ input,
   padding: 3px;
   border: none;
 }
+
+.addButton:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
 </style>

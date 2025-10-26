@@ -123,8 +123,8 @@ span {
 }
 
 .checkbox-input:hover {
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-  border-color: #a3a3a3;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  border-color: transparent;
 }
 
 .checkbox-input:checked {
@@ -135,7 +135,7 @@ span {
 }
 
 .checkbox-input:checked:hover {
-  box-shadow: 1px 1px 4px rgba(255, 79, 79, 0.6);
+  box-shadow: 0 0 5px rgba(255, 79, 79, 0.6);
 }
 
 .buttons {
@@ -159,9 +159,9 @@ button {
 }
 
 #editBtn:hover {
-  border-color: #919191;
+  border-color: transparent;
   background-color: #fafafa;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #delBtn {
@@ -171,7 +171,7 @@ button {
 
 #delBtn:hover {
   background-color: #e30000;
-  box-shadow: 2px 2px 5px rgba(211, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(211, 0, 0, 0.6);
 }
 
 .checked {
