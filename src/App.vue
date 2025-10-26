@@ -83,4 +83,8 @@ h2 {
   color: #1c1c1c;
   margin: 5px;
 }
+
+h1 {
+  margin-top: 20px;
+}
 </style>
