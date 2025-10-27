@@ -7,12 +7,14 @@
       <span style="color: red">{{ completedTodos }}</span> out of
       {{ this.todos.length }} items completed
     </p>
-    <TodoList :todos="todos" @del="delTodo" @save="saveTodo" />
+    <FilterTodos @filter="filterChange" />
+    <TodoList :todos="filteredTodos" @del="delTodo" @save="saveTodo" />
   </div>
 </template>
 
 <script>
 import AddTodo from "./components/AddTodo.vue";
+import FilterTodos from "./components/FilterTodos.vue";
 import TodoList from "./components/TodoList.vue";
 
 export default {
@@ -20,15 +22,25 @@ export default {
   components: {
     TodoList,
     AddTodo,
+    FilterTodos,
   },
   data() {
     return {
       todos: JSON.parse(localStorage.getItem("todos")) || [],
+      currentFilter: "",
     };
   },
   computed: {
     completedTodos() {
       return this.todos.filter((t) => t.completed).length;
+    },
+    filteredTodos() {
+      if (this.currentFilter === "Completed") {
+        return this.todos.filter((t) => t.completed);
+      } else if (this.currentFilter === "Not completed") {
+        return this.todos.filter((t) => t.completed === false);
+      }
+      return this.todos;
     },
   },
   methods: {
@@ -42,6 +54,9 @@ export default {
         this.todos.push(newTodo);
         this.updateLocalStorage();
       }
+    },
+    filterChange(filter) {
+      this.currentFilter = filter;
     },
     delTodo(id) {
       const todo = this.todos.findIndex((t) => t.id === id);

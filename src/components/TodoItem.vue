@@ -57,7 +57,6 @@ export default {
       );
     },
     updateCompleted() {
-      console.log(this.localTodo.name, this.localTodo.completed);
       this.$emit(
         "save",
         this.localTodo.id,
